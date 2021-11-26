@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from "react";
+import ListItem from "./ListItem";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [list, setList] = useState([1, 2, 3, 4]);
+
+    const plusCounter = (index) => {
+        const arrPlus = list.map((el, i) => {
+            if (index === i) {
+                return el + 1
+            }
+            return el
+        })
+        setList(arrPlus)
+    }
+
+    const minusCounter = (index) => {
+        const arrMinus = list.map((el, i) => {
+            if (index === i) {
+                return el - 1
+            }
+            return el
+        })
+        setList(arrMinus)
+    }
+
+    return (
+        <div>
+            {list.map((el, index) => <ListItem plusCounter={plusCounter}
+                                               minusCounter={minusCounter}
+                                               el={el}
+                                               index={index}
+                                               key={Math.random()}/>)}
+        </div>
+    );
 }
 
 export default App;
